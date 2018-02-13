@@ -12,7 +12,7 @@ import schema from './graphql/schema';
 
 import Resolvers from './graphql/resolvers';
 
-const GRAPHQL_PORT = 8080;
+const GRAPHQL_PORT = 8081;
 
 const graphQLServer = express();
 
