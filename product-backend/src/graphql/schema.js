@@ -1,11 +1,4 @@
 const typeDefinitions = `
-type Address {
-	id: ID!
-	street: String!
-	number: String!
-	city: String!
-	postalCode: String!
-}
 
 type Category {
 	id: ID!
@@ -14,12 +7,6 @@ type Category {
 	products: [Product!]
 }
 
-type Deliverer {
-	id: ID!
-	name: String!
-	email: String!
-	address: Address!
-}
 
 
 type Product {
@@ -29,7 +16,7 @@ type Product {
 	deliveryTime: Int
 	description: String
 	categories: [Category]!
-	deliverer: Deliverer!
+	deliverer_id: Int!
 }
 
 
@@ -37,7 +24,7 @@ type Product {
 
 # the schema allows the following queries:
 type RootQuery {
-    deliverer(id: ID!): Deliverer
+  #  deliverer(id: ID!): Deliverer
     category(name: String): [Category]
 }
 

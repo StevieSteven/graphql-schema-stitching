@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
 import {graphqlExpress, graphiqlExpress} from 'apollo-server-express';
+import express from 'express';
+import bodyParser from 'body-parser';
 import {makeRemoteExecutableSchema, mergeSchemas, introspectSchema} from 'graphql-tools';
 import {createApolloFetch,} from 'apollo-fetch';
 
@@ -12,28 +12,29 @@ async function run() {
             fetcher
         });
     };
-    const universeSchema = await createRemoteSchema('https://www.universe.com/graphql/beta');
-    const weatherSchema = await createRemoteSchema('https://5rrx10z19.lp.gql.zone/graphql');
+    const productSchema = await createRemoteSchema('http://localhost:8081/graphql');
+    const delivererSchema = await createRemoteSchema('http://localhost:8082/graphql');
     const linkSchemaDefs = `
-    extend type Event {
-        location: Location
+    extend type Product {
+        deliverer: Deliverer
     }
   `;
     const schema = mergeSchemas({
-        schemas: [universeSchema, weatherSchema, linkSchemaDefs],
+        schemas: [productSchema, delivererSchema, linkSchemaDefs],
         resolvers: mergeInfo => ({
-            Event: {
-                location: {
-                    fragment: `fragment EventFragment on Event {cityName}`,
+            Product: {
+                deliverer: {
+                    fragment: `fragment ProductFragment on Product {deliverer_id}`,
                     resolve(parent, args, context, info) {
-                        const place = parent.cityName;
+                        const delivererId = parent.deliverer_id;
+                        console.log('delivererID: ', delivererId);
                         return mergeInfo.delegate(
                             'query',
-                            'location',
-                            {place},
+                            'deliverer',
+                            {id: delivererId},
                             context,
                             info
-                        )
+                        );
                     }
                 }
             }
@@ -49,19 +50,23 @@ async function run() {
         graphiqlExpress({
             endpointURL: '/graphql',
             query: `query {
-  event(id: "5983706debf3140039d1e8b4") {
-    title
-    description
-    url
-    location {
-      city
-      country
-      weather {
-        summary
-        temperature
+	category {
+ 		id
+		name
+    products {
+      id
+      name
+      deliverer {
+        id
+        name
+        address {
+          id
+          city
+        }
       }
+    
     }
-  }
+	}
 }
       `,
         })

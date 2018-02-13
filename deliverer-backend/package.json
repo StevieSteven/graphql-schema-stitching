@@ -1,0 +1,33 @@
+{
+  "name": "graphql-schema-stitching-deliverer-backend-server",
+  "version": "1.0.0",
+  "description": "Backend for the deliverer data. contains the adresses of all deliverers",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/babel-node src/index.js ENV=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StevieSteven/graphql-schema-stitching.git"
+  },
+  "author": "Stephan Strehler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StevieSteven/graphql-schema-stitching/issues"
+  },
+  "homepage": "https://github.com/StevieSteven/graphql-schema-stitching#readme",
+  "dependencies": {
+    "apollo-server-express": "^1.2.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphiql": "^0.11.6",
+    "graphql": "^0.11.7",
+    "graphql-tools": "^0.3.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-latest": "^6.24.1"
+  }
+}

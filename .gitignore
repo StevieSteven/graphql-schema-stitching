@@ -1,1 +1,4 @@
 .idea/
+api/node_modules/
+product-backend/node_modules/
+deliverer-backend/node_modules/
